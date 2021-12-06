@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         var hits = Physics2D.OverlapBoxAll(lastPosPlayer, size, 90);
         foreach (var hit in hits)
         {
-            if (hit.gameObject.CompareTag("wall") == false | hit.gameObject.CompareTag("wallFloor") == false)
+            if (hit.gameObject.CompareTag("wall") == false && hit.gameObject.CompareTag("wallFloor") == false)
             {
                 hit.gameObject.SetActive(false);
             }
