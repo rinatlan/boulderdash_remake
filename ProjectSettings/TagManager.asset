@@ -9,15 +9,16 @@ TagManager:
   - sand
   - wall
   - wallFloor
+  - rock
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - sand
   - Water
   - UI
-  - 
-  - 
+  - diamond
+  - rock
   - 
   - 
   - 
