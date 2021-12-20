@@ -8,10 +8,18 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D rigidBody2D;
 
+    private Animator _playerAnimator;
+
     private Vector2 _movement;
     private float _moveSpeed = 5f;
     private bool moving;
+    //public AudioSource audioSource;
+    //public AudioClip sound;
 
+    private void Awake()
+    {
+        _playerAnimator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,25 +38,28 @@ public class Player : MonoBehaviour
             _movement.x = -1f;
             _movement.y = 0;
             moving = true;
-
+            _playerAnimator.SetTrigger("leftWalk");
         }
         else if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             _movement.x = 1f;
             _movement.y = 0;
             moving = true;
+            _playerAnimator.SetTrigger("rightWalk");
         }
         else if (Input.GetKeyUp(KeyCode.UpArrow))
         {
             _movement.x = 0;
             _movement.y = 1f;
             moving = true;
+            _playerAnimator.SetTrigger("leftWalk");
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             _movement.x = 0;
             _movement.y = -1f;
             moving = true;
+            _playerAnimator.SetTrigger("leftWalk");
         }
         else
         {
@@ -56,6 +67,7 @@ public class Player : MonoBehaviour
             {
                 _movement.x = 0;
                 _movement.y = 0;
+                
             }
         }
     }
@@ -65,43 +77,23 @@ public class Player : MonoBehaviour
         //rigidBody2D.MovePosition(rigidBody2D.position + _movement * _moveSpeed * Time.deltaTime);
         //if(_movement != Vector2.zero)
         //    print($"moving: ({_movement.x},{_movement.y})");
+        rigidBody2D.velocity = Vector2.zero;
+        
         if (moving)
         {
+            //a.PlayOneShot(sound);
             Vector2 newPos = rigidBody2D.position + _movement;
             rigidBody2D.MovePosition(newPos);
             _movement = Vector2.zero;
             moving = false;
         }
+        
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
-        
-        if (other.gameObject.CompareTag("rock"))
-        {
-            Vector2 size = new Vector2(2, 2);
-            Vector2 lastPosPlayer = rigidBody2D.position;
-            gameObject.SetActive(false);
-            var hits = Physics2D.OverlapBoxAll(lastPosPlayer, size, 90);
-            foreach (var hit in hits)
-            {
-                if (hit.gameObject.CompareTag("wall") == false && hit.gameObject.CompareTag("wallFloor") == false)
-                {
-                    hit.gameObject.SetActive(false);
-                }
-            }
-            GameManager.MinusLive();
-        }
-        // player collected diamond
-        // need to increase points by 10
-        
-        
-        // player moves in the sand
-        //else if (other.gameObject.CompareTag("sand"))
-        //{
-        //    other.gameObject.SetActive(false);
-        //}
         
     }
     
@@ -126,5 +118,71 @@ public class Player : MonoBehaviour
             GameManager.AddPoints();
             GameManager.AddDiamond();
         }
+        if (other.gameObject.CompareTag("fallOnPlayer"))
+        {
+            if (other.GetComponentInParent<Rigidbody2D>().bodyType == RigidbodyType2D.Dynamic)
+            {
+                Vector2 size = new Vector2(2, 2);
+                Vector2 lastPosPlayer = rigidBody2D.position;
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                gameObject.GetComponent<Animator>().SetTrigger("explosion");
+                var hits = Physics2D.OverlapBoxAll(lastPosPlayer, size, 90);
+                foreach (var hit in hits)
+                {
+                    if (hit.gameObject.CompareTag("wall") == false && hit.gameObject.CompareTag("wallFloor") == false && 
+                        hit.gameObject.CompareTag("fallOnPlayer") == false && hit.gameObject.CompareTag("sandOtherCollider") == false)
+                    {
+                        hit.gameObject.GetComponent<Animator>().SetTrigger("explosion");
+                    }
+                }
+                
+            }
+        }
+        if (other.name == "Square")
+        {
+            GameManager.xPos = 10;
+            GameManager.yPos = -0.5f;
+        }
+        if (other.name == "Square2")
+        {
+            GameManager.xPos = 21.5f;
+            GameManager.yPos = -0.5f;
+        }
+        if (other.name == "Square3")
+        {
+            GameManager.xPos = 21.5f;
+            GameManager.yPos = -6f;
+        }
+        if (other.name == "Square4")
+        {
+            GameManager.xPos = 10;
+            GameManager.yPos = -6f;
+        }
+        if (other.name == "Square5")
+        {
+            GameManager.xPos = -0.501f;
+            GameManager.yPos = -6f;
+        }
+        if (other.name == "Square6")
+        {
+            GameManager.xPos = -0.501f;
+            GameManager.yPos = -13.2f;
+        }
+        if (other.name == "Square7")
+        {
+            GameManager.xPos = 12f;
+            GameManager.yPos = -13.2f;
+        }
+        if (other.name == "Square8")
+        {
+            GameManager.xPos = 21.5f;
+            GameManager.yPos = -13.2f;
+        }
+    }
+
+    public void dead()
+    {
+        GameManager.MinusLive();
     }
 }

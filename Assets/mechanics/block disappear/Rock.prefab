@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2811873583279140024}
   - component: {fileID: 2811873583279140005}
   - component: {fileID: 2811873583279140026}
+  - component: {fileID: 159536754405243521}
+  - component: {fileID: 2165932976391862767}
   m_Layer: 7
   m_Name: Rock
   m_TagString: rock
@@ -106,7 +108,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 5
 --- !u!61 &2811873583279140026
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -116,11 +118,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 2811873583279140025}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 13adf5d38be4c7242a51f0f6f373147b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0010331571, y: -0.00000013411045}
+  m_Offset: {x: 0.00025087595, y: -0.005725473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,8 +133,39 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9488794, y: 0.95927644}
+  m_Size: {x: 0.9616803, y: 0.96982414}
   m_EdgeRadius: 0
+--- !u!114 &159536754405243521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811873583279140025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7606bf410680f0e44a0e9c0bff329adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2165932976391862767
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811873583279140025}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15f6db13e5333774f8d73b80fdb15ca8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6111885190538498996
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6111885190538498996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.002, y: -0.415, z: 0}
+  m_LocalPosition: {x: 0.009, y: -0.38, z: 0}
   m_LocalScale: {x: 0.41804615, y: 0.39547595, z: 1}
   m_Children: []
   m_Father: {fileID: 2811873583279140027}
@@ -231,9 +264,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.003932692}
+  m_Offset: {x: 0, y: -0.1596844}
   serializedVersion: 2
-  m_Radius: 0.4667868
+  m_Radius: 0.32063755
 --- !u!114 &6417317707853205159
 MonoBehaviour:
   m_ObjectHideFlags: 0
