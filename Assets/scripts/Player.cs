@@ -9,16 +9,17 @@ public class Player : MonoBehaviour
     public Rigidbody2D rigidBody2D;
 
     private Animator _playerAnimator;
+    public AudioSource sound;
 
     private Vector2 _movement;
     private float _moveSpeed = 5f;
     private bool moving;
-    //public AudioSource audioSource;
-    //public AudioClip sound;
+   
 
     private void Awake()
     {
         _playerAnimator = GetComponent<Animator>();
+        sound = FindObjectOfType<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -74,14 +75,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //rigidBody2D.MovePosition(rigidBody2D.position + _movement * _moveSpeed * Time.deltaTime);
-        //if(_movement != Vector2.zero)
-        //    print($"moving: ({_movement.x},{_movement.y})");
         rigidBody2D.velocity = Vector2.zero;
         
         if (moving)
         {
-            //a.PlayOneShot(sound);
+            sound.Play();
             Vector2 newPos = rigidBody2D.position + _movement;
             rigidBody2D.MovePosition(newPos);
             _movement = Vector2.zero;
@@ -97,10 +95,7 @@ public class Player : MonoBehaviour
         
     }
     
-    
-    //  if rock fell on the player: 
-    // need to deactivated the player and 5 object near it
-    // need to restart the scene (game) with 2 lives
+   
     private void OnTriggerExit2D(Collider2D other)
     {
         

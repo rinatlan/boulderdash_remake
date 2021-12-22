@@ -4,17 +4,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _shared;
-
+    
     public static float xPos = -0.501f;
     public static float yPos = -0.5f;
-
-    private int _points = 0;
-    private int _numDiamondsEaten = 0;
-
-    public int amountOfDiamond = 0;
-
-    private GameObject playerObj;
-
     public GameObject wallPrefab;
     public GameObject sandPrefab;
     public GameObject playerPrefab;
@@ -22,21 +14,20 @@ public class GameManager : MonoBehaviour
     public GameObject rockPrefab;
     public GameObject secondWallPrefab;
     public GameObject doorPrefab;
-    
-    //public GameObject canvasPrefab;
+    public GameObject live1Prefab;
+
+    private int _points = 0;
+    private int _numDiamondsEaten = 0;
+    private GameObject playerObj;
     private GameObject _canvas;
     private int _numLives = 3;
-    public GameObject live1Prefab;
+    
+    //public int amountOfDiamond = 0;
+    
 
     private Vector3[] _lifePointsPositions = new Vector3[] {new Vector3(-226.419998f,120.389999f,0)
         , new Vector3(-210.600006f,123.910004f,0),new Vector3(-193.300003f,123.910004f,0) };
-    //public GameObject live2Prefab;
-    //public GameObject live3Prefab;
-    // public GameObject live1;
-    // public GameObject live2;
-    // public GameObject live3;
-    //public Canvas canvas;
-    
+
     private int wall = 1;
     private int sand = 2;
     private int player = 3;
@@ -94,16 +85,9 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     {
-        //_shared = this;
-        
         if ( _shared == null )
         {
             _shared = this;
-            //DontDestroyOnLoad(canvas);
-            // DontDestroyOnLoad(live1);
-            // DontDestroyOnLoad(live2);
-            // DontDestroyOnLoad(live3);
-            //_shared.InitBoard();
             LoadLP();
             DontDestroyOnLoad(gameObject);
         }
@@ -133,26 +117,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-        //     //print($"in board. lives = {_shared._numLives}");
-        //     if (_shared._numLives == 1)
-        //     {
-        //         Instantiate(live1Prefab, _canvas.transform);
-        //     }
-        //     else if (_shared._numLives == 2)
-        //     {
-        //         Instantiate(live1Prefab, _canvas.transform);
-        //         Instantiate(live2Prefab, _canvas.transform);
-        //     }
-        //     else if (_shared._numLives == 3)
-        //     {
-        //         _canvas = Instantiate(canvasPrefab, canvasPrefab.GetComponent<RectTransform>().position,
-        //             Quaternion.identity);
-        //         Instantiate(live1Prefab, _canvas.transform);
-        //         Instantiate(live2Prefab, _canvas.transform);
-        //         Instantiate(live3Prefab, _canvas.transform);
-        //         DontDestroyOnLoad(_canvas);
-        //     }
-
             Instantiate(doorPrefab);
             Vector2 originalPos = new Vector2(-9f, 3.2f);
             int counterX = 0;
@@ -195,7 +159,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadLP()
     {
-        print("aaaaa" + _numLives);
         var canvas = GameObject.FindGameObjectWithTag("canvas");
         foreach (var live in GameObject.FindGameObjectsWithTag("live"))
         {
@@ -207,7 +170,6 @@ public class GameManager : MonoBehaviour
             var livePos = curLive.transform.position;
             livePos.x += (_numLives + 1 - i) * 20 - 35;
             curLive.transform.position = livePos;
-            //Instantiate(live1Prefab, _lifePointsPositions[i], Quaternion.identity, canvas.transform);
         }
     }
     
@@ -224,25 +186,7 @@ public class GameManager : MonoBehaviour
     {
         _shared._numLives -= 1;
         SceneManager.LoadScene("Game");
-        //if (_shared._numLives == 2)
-        //{
-        //    Destroy(_shared.lives[0].gameObject);
-            //_shared.lives[0].gameObject.SetActive(false);
-            //SceneManager.LoadScene("Game");
-            
-        //}
-
-        //else if (_shared._numLives == 1)
-        //{
-            //Destroy(_shared.lives[1].gameObject);
-            //SceneManager.LoadScene("Game");
-        //}
-        //else if (_shared._numLives == 0)
-        //{
-        //    ;
-        //}
         
-
     }
 
     public static int GetDiamonds()
@@ -253,12 +197,5 @@ public class GameManager : MonoBehaviour
     public static void AddDiamond()
     {
         _shared._numDiamondsEaten += 1;
-    }
-   
-    
-    // Update is called once per frame
-    void Update()
-    {
-        //_numDiamondsEaten = amountOfDiamond;
     }
 }
